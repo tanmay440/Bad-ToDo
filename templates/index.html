@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div class="container">
+    <form action="/" method="POST">
+        <div class="mb-3">
+            <label for="title" class="form-label" id="emailHelp">ToDo Title</label>
+            <input type="text" class="form-control" name="title" id="title" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="desc" class="form-label">ToDo Description</label>
+            <input type="text" class="form-control" name="desc" id="desc">
+        </div>
+        <div class="mb-3 form-check">
+
+
+        </div>
+        <button type="submit" class="btn btn-outline-primary">Submit</button>
+    </form>
+    <div class="container my-5  ">
+        <h2>Your List</h2>
+        <table class="table">
+            {% if alltodo|length==0 %}
+
+            <div class="alert alert-info" role="alert">
+                No ToDos!
+            </div>
+            {%else%}
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+
+            {% endif %}
+            <tbody>
+
+                {% for todo in alltodo %}
+                <tr>
+                    <th scope="row">{{loop.index}}</th>
+                    <td>{{todo.title}}</td>
+                    <td>{{todo.desc}}</td>
+                    <td>{{todo.date_created}}</td>
+                    <td><a type="button" class="btn btn-outline-danger btn-sm mx-1"
+                            href="/delete/{{todo.sno}}">Delete</a>
+                        <a type="button" class="btn btn-outline-success btn-sm mx-1"
+                            href="/update/{{todo.sno}}">Update</a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+
+            </tbody>
+        </table>
+    </div>
+
+
+    {% endblock body %}
